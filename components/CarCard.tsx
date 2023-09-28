@@ -6,6 +6,7 @@ import { useState } from "react";
 import { CarProps } from "@/types";
 import CustomButton from "./CustomButton";
 import { calculateCarRent } from "@/utils";
+import CarDetails from "./CarDetails";
 
 interface CarCardProps {
   car: CarProps;
@@ -14,10 +15,13 @@ interface CarCardProps {
 const CarCard = ({ car }: CarCardProps) => {
   const { city_mpg, year, make, model, transmission, drive } = car;
 
+  const [isOpen, setIsOpen] = useState(false);
+  
+
   const carRent = calculateCarRent(city_mpg, year);
 
   return (
-    <div className="car-group group">
+    <div className="car-card group">
       <div className="car-card__content">
         <h2 className="car-card__content-title">
           {make} {model}
@@ -40,7 +44,7 @@ const CarCard = ({ car }: CarCardProps) => {
       </div>
 
       <div className="relative flex w-full mt-2">
-        <div className="flex group-hover:invisible w-full justify-between text-gray">
+        <div className="flex group-hover:invisible w-full justify-between text-gray ">
           <div className="flex flex-col justify-center items-center gap-2">
             <Image
               src="/steering-wheel.svg"
@@ -62,18 +66,21 @@ const CarCard = ({ car }: CarCardProps) => {
           </div>
         </div>
 
-        <div className="car-card__btn-container">
-            <CustomButton
+        <div className="car-card__btn-container transition-all duration-300">
+          <CustomButton
             title="View More"
             containerStyles="w-full py-[16px] rounded-md bg-primary-blue "
-            
-            />
-
+            textStyles="text-white text-[14px] leading-[17px] font-bold "
+            rightIcon="/right-arrow.svg"
+            handleClick={() => setIsOpen(true)}
+          />
         </div>
       </div>
+      
+      <CarDetails isOpen={isOpen} closeModal={() => setIsOpen(false)} car={car} />
+
     </div>
   );
 };
 
 export default CarCard;
-

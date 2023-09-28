@@ -8,6 +8,8 @@ const CustomButton = ({
   title,
   handleClick,
   btnType,
+  textStyles,
+  rightIcon,
 }: CustomButtonProps) => {
   return (
     <button
@@ -16,7 +18,22 @@ const CustomButton = ({
       className={`custom-btn ${containerStyles} `}
       onClick={handleClick}
     >
-      <span className={`flex-1 hover:font-semibold transition-all ease-out duration-300 `}>{title}</span>
+      <span
+        className={`flex-1 ${textStyles} hover:font-semibold transition-all ease-out duration-300 `}
+      >
+        {title}
+      </span>
+      {rightIcon && (
+        <div className="relative w-6 h-6">
+          <Image
+            src={rightIcon}
+            alt="right icon "
+            width={20}
+            height={20}
+            className="object-contain"
+          />
+        </div>
+      )}
     </button>
   );
 };
