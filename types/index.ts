@@ -42,3 +42,14 @@ export interface FilterProps {
   limit?: number;
   fuel?: string;
 }
+
+export interface OptionProps {
+  title: string;
+  value: string;
+}
+
+export interface CustomFilterProps<T> {
+  title: string;
+  options: OptionProps[];
+  setFilter: (selected: T) => void;
+}
